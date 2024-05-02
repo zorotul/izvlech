@@ -110,5 +110,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82689f0dcdff64042991e19fa730a87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bricksEffectPreafad: {fileID: 4752763249085657650, guid: 625efe85c32588e4e95a352a8ab11df5,
+  _bricksEffectPreafad: {fileID: 158955703365406138, guid: d57a41ba217dea14d94bae6dfe12e310,
     type: 3}
