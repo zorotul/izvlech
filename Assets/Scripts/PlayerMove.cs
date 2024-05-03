@@ -6,7 +6,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float _speed;
     float _oldMousePositionX;
     float _eulerY;
-    [SerializeField] Animator _animator; 
+    [SerializeField] Animator _animator;
+    [SerializeField] AudioSource _run;
 
     void Update()
     {
@@ -14,6 +15,7 @@ public class PlayerMove : MonoBehaviour
         {
             _oldMousePositionX = Input.mousePosition.x;
             _animator.SetBool("Run", true);
+            _run.Play();
         }
 
         if (Input.GetMouseButton(0))
@@ -31,6 +33,7 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             _animator.SetBool("Run", false);
+            _run.Stop();
         }
 
     }

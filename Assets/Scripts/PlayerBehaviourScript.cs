@@ -8,6 +8,8 @@ public class PlayerBehaviourScript : MonoBehaviour
     [SerializeField] PlayerMove _playerMove;
     [SerializeField] PreFinishBehaviour _preFinishBehaviour;
     [SerializeField] Animator _animator;
+    [SerializeField] AudioSource _win;
+    [SerializeField] AudioSource _run;
 
     void Start()
     {
@@ -28,6 +30,8 @@ public class PlayerBehaviourScript : MonoBehaviour
     {
         _preFinishBehaviour.enabled = false;
         _animator.SetTrigger("Dance");
+        _run.Stop();
+        _win.Play();
     }
 
 }

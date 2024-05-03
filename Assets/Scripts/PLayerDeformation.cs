@@ -14,6 +14,11 @@ public class PLayerDeformation : MonoBehaviour
     [SerializeField] Transform _topSpine;
     [SerializeField] Transform _bottomSpine;
     [SerializeField] Transform _colliderTransform;
+    [SerializeField] AudioSource _down;
+    [SerializeField] AudioSource _pump;
+    int _intermediateWidth;
+    int _intermediateHeight;
+
 
     private void Start()
     {
@@ -31,13 +36,33 @@ public class PLayerDeformation : MonoBehaviour
 
     public void AddWidth(int value )
     {
-        _width += value;
+        _intermediateWidth = _width;
+        _intermediateWidth += value;
+        _width = Mathf.Clamp(_intermediateWidth, 0, 600);
         UpdeteWidht();
+        if (value < 0)
+        {
+            _down.Play();
+        } 
+        else
+        {
+            _pump.Play();
+        } 
     }
     public void AddHeigth(int value )
     {
-        _heigth += value;
-       
+        _intermediateHeight = _heigth;
+        _intermediateHeight += value;
+        _heigth =  Mathf.Clamp(_intermediateHeight, 0, 300);
+        if (value < 0)
+        {
+            _down.Play();
+        }
+        else
+        {
+            _pump.Play();
+        }
+
     }
     public void SetWidth(int value)
     {
