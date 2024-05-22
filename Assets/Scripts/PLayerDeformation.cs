@@ -28,8 +28,9 @@ public class PLayerDeformation : MonoBehaviour
 
     void Update()
     {
-        float offsetY = _heigth * _heightMultiplayer + 0.17f;
-        _topSpine.position = _bottomSpine.position + new Vector3(0, offsetY, 0);
+        //_heigth* _heightMultiplayer
+        float offsetY = 0.25f;
+        _topSpine.position = _bottomSpine.position + new Vector3(0, offsetY + _heigth * _heightMultiplayer, 0);
         _colliderTransform.localScale = new Vector3(1,1.84f + _heigth * _heightMultiplayer, 1);
         
     }
@@ -38,7 +39,7 @@ public class PLayerDeformation : MonoBehaviour
     {
         _intermediateWidth = _width;
         _intermediateWidth += value;
-        _width = Mathf.Clamp(_intermediateWidth, 0, 600);
+        _width = Mathf.Clamp(_intermediateWidth, 0, 500);
         UpdeteWidht();
         if (value < 0)
         {
