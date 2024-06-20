@@ -8,8 +8,8 @@ public class TNT : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        _playerDeformation.AddWidth(-30);
-        _playerDeformation.AddHeigth(-30);
+        _playerDeformation.AddWidth(-30, true);
+        _playerDeformation.AddHeigth(-30, true);
         Destroy(gameObject);
     }
 }

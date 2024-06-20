@@ -19,11 +19,11 @@ public class Gate : MonoBehaviour
         {
             if (_deformationType == DeformationType.Width)
             {
-                pLayerDeformation.AddWidth(_value);
+                pLayerDeformation.AddWidth(_value, false);
             }
             else
             {
-                pLayerDeformation.AddHeigth(_value);
+                pLayerDeformation.AddHeigth(_value, false);
             }
             Destroy(gameObject);
         }
