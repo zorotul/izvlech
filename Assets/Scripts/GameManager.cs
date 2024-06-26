@@ -1,61 +1,77 @@
-using System.Collections;
-using System.Collections.Generic;
+using blocks;
+using DefaultNamespace;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject _startMenu;
-    [SerializeField] TextMeshProUGUI _levelText;
-    [SerializeField] GameObject _finishWindowWin;
-    [SerializeField] GameObject _finishWindowDefeat;
-    [SerializeField] CoinManager _coinManager;
-    [SerializeField] Shop _shop;
+    [SerializeField] private Transform _finishPosition;
+    [SerializeField] private GameObject _finishPrefab;
+    [SerializeField] private Transform _startPlayerPosition;
+    [SerializeField] private GameObject _startMenu;
+    [SerializeField] private TMP_Text _levelText;
+    [SerializeField] private GameObject _finishWindowWin;
+    [SerializeField] private GameObject _finishWindowDefeat;
+    [SerializeField] private CoinManager _coinManager;
+    [SerializeField] private GameplayShop _shop;
 
+    private GameObject _activeFinishObject;
 
+    public static GameManager Instance;
 
-    private void Start()
+    private void Awake()
     {
-        _levelText.text = SceneManager.GetActiveScene().name;
+        Instance = this;
+        GameEvents.ResetLevelEvent.AddListener(Init);
+    }
 
+    public void StartGame()
+    {
+        LevelsControl.Instance.LoadFirstLevel();
+        GameEvents.ResetLevelEvent.Invoke();
+    }
 
+    private void Init()
+    {
+        _finishWindowDefeat.SetActive(false);
+        _finishWindowWin.SetActive(false);
+        if (_activeFinishObject != null) Destroy(_activeFinishObject);
+        _activeFinishObject = Instantiate(_finishPrefab, _finishPosition.position, Quaternion.identity);
+        PlayerBehaviour.Instance.transform.position = _startPlayerPosition.position;
+        _levelText.text = (GameDataManager.GetLevel() + 1).ToString();
     }
 
     public void Play()
     {
+        GameEvents.StartGameEvent.Invoke();
         _startMenu.SetActive(false);
-        FindObjectOfType<PlayerBehaviourScript>().Play();
+        PlayerBehaviour.Instance.Play();
     }
-    public void ShowfinishWindowWin()
+
+    public void ShowFinishWindowWin()
     {
         _finishWindowWin.SetActive(true);
     }
-    public void ShowfinishWindowDefeat()
+
+    public void ShowFinishWindowDefeat()
     {
         _finishWindowDefeat.SetActive(true);
     }
+
     public void NextLevel()
     {
-        int next = SceneManager.GetActiveScene().buildIndex + 1;
-        if (next  < SceneManager.sceneCountInBuildSettings)
-        {
-            _shop.SaveToPrice();
-            _coinManager.SaveToCoins();
-            SceneManager.LoadScene(next);
-
-        }
-
+        LevelsControl.Instance.LoadNextLevel();
+        GameEvents.ResetLevelEvent.Invoke();
     }
+
     public void ReLevel()
     {
-        _shop.SaveToPrice();
-        _coinManager.SaveToCoins(); 
-        int next = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(next);
-
-
+        LevelsControl.Instance.RestartLevel();
+        GameEvents.ResetLevelEvent.Invoke();
     }
 
+    public void HomeButtonEvent()
+    {
+        _startMenu.SetActive(true);
+    }
 }
-

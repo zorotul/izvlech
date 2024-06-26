@@ -33,8 +33,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
-      takeName: mixamo.com
+      name: SlowRun
+      takeName: Armature|Armature.001|Armature|Armature|mixamo.com|Layer0
       internalID: -203655887218126122
       firstFrame: 0
       lastFrame: 27
