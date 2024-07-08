@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6296497507825098116
 Transform:
@@ -52,6 +52,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plank_7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120852291912089184, guid: 482492beab8f5864696e31834ad6ce0b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7721081239745100997, guid: 482492beab8f5864696e31834ad6ce0b,
         type: 3}
@@ -122,10 +127,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6296497507825098116}
     m_Modifications:
+    - target: {fileID: 4572204862993782311, guid: 3e5e3c449c28e9c4ba27b4c437c7fa34,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4827427763578056446, guid: 3e5e3c449c28e9c4ba27b4c437c7fa34,
         type: 3}
       propertyPath: m_Name
       value: Grass_Block_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827427763578056446, guid: 3e5e3c449c28e9c4ba27b4c437c7fa34,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5311335323234333764, guid: 3e5e3c449c28e9c4ba27b4c437c7fa34,
         type: 3}
@@ -201,6 +216,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plank_4
       objectReference: {fileID: 0}
+    - target: {fileID: 6120852291912089184, guid: 482492beab8f5864696e31834ad6ce0b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7721081239745100997, guid: 482492beab8f5864696e31834ad6ce0b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -274,6 +294,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plank_9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120852291912089184, guid: 482492beab8f5864696e31834ad6ce0b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7721081239745100997, guid: 482492beab8f5864696e31834ad6ce0b,
         type: 3}
@@ -349,6 +374,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plank_6
       objectReference: {fileID: 0}
+    - target: {fileID: 6120852291912089184, guid: 482492beab8f5864696e31834ad6ce0b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7721081239745100997, guid: 482492beab8f5864696e31834ad6ce0b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -422,6 +452,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plank_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120852291912089184, guid: 482492beab8f5864696e31834ad6ce0b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7721081239745100997, guid: 482492beab8f5864696e31834ad6ce0b,
         type: 3}
@@ -497,6 +532,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plank_8
       objectReference: {fileID: 0}
+    - target: {fileID: 6120852291912089184, guid: 482492beab8f5864696e31834ad6ce0b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7721081239745100997, guid: 482492beab8f5864696e31834ad6ce0b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -566,10 +606,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6296497507825098116}
     m_Modifications:
+    - target: {fileID: 4572204862993782311, guid: 3e5e3c449c28e9c4ba27b4c437c7fa34,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4827427763578056446, guid: 3e5e3c449c28e9c4ba27b4c437c7fa34,
         type: 3}
       propertyPath: m_Name
       value: Grass_Block_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827427763578056446, guid: 3e5e3c449c28e9c4ba27b4c437c7fa34,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5311335323234333764, guid: 3e5e3c449c28e9c4ba27b4c437c7fa34,
         type: 3}
@@ -644,6 +694,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plank_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120852291912089184, guid: 482492beab8f5864696e31834ad6ce0b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7721081239745100997, guid: 482492beab8f5864696e31834ad6ce0b,
         type: 3}
