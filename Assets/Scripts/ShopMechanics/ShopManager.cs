@@ -18,12 +18,11 @@ namespace ShopMechanics
         [Header("reference")]
         [SerializeField] private CharacterShopData _activeShopData;
         [SerializeField] private AudioClip _purcharAudio;
+
         [Header("UI elements")] 
         [SerializeField] private ShopItemsGenerator _shopItemsGenerator;
         [SerializeField] private ShopSkinControl _shopSkinControl;
         [SerializeField] private GameObject _shopUI;
-        [SerializeField] private Button _closeShopButton;
-        [SerializeField] private Button _rewardAdsButton;
         [SerializeField] private TextMeshProUGUI _noEnoughCoinsText;
         
         private CharacterItem[] _shopItems; 
@@ -32,6 +31,7 @@ namespace ShopMechanics
         private int _purchaseItemIndex;
         
         public static readonly MultiText UnlockLevelText = new ("Разблокируется на уровне ", "Unlock At Level ");
+        public static readonly MultiText OpenOnText = new("Требуеться дней заходить: ", "Days required to get it: ");
 
         public static ShopManager Instance { get; private set; }
 
@@ -43,7 +43,6 @@ namespace ShopMechanics
         private void OnEnable()
         {
             YandexGame.RewardVideoEvent += OnCompleteShopAds;
-            YandexGame.RewardVideoEvent += OnCompleteAds;
             CharacterItem.BuySkinEvent.AddListener(OnPurchaseItem);
             CharacterItem.SelectSkinEvent.AddListener(OnSelectItem);
         }
@@ -51,7 +50,6 @@ namespace ShopMechanics
         private void OnDisable()
         {
             YandexGame.RewardVideoEvent -= OnCompleteShopAds;
-            YandexGame.RewardVideoEvent -= OnCompleteAds;
         }
 
         private void OnCompleteShopAds(int obj)
@@ -65,7 +63,6 @@ namespace ShopMechanics
             _shopItemsGenerator.Init();
             _shopItems = _shopItemsGenerator.Items.ToArray();
             _shopSkinControl.Init();
-            AddEvents();
             _shopSkinControl.ChangeSkin(GameDataManager.GetCharacterIndex());
             SelectItem(GameDataManager.GetCharacterIndex());
             CloseShop();
@@ -118,8 +115,8 @@ namespace ShopMechanics
                     GameDataManager.SpendCoin(character.price);
                     GameDataManager.AddPurchaseCharacter(index);
 
-                    // SoundManager.instance.PlayAudioSound(purcharAudio); TODO audio
-                    GameSharedUI.instance.UpdateCoinsTextUI();
+                    SoundManager.Instance.PlayAudioSound(_purcharAudio);
+                    CoinManager.Instance.UpdateTexts();
                 }
                 else
                 {
@@ -145,44 +142,6 @@ namespace ShopMechanics
         {
             transform.DOComplete();
             transform.DOShakePosition(1f, new Vector3(10f, 0, 0), 10, 0).SetEase(Ease.Linear);
-        }
-
-        private void AddEvents()
-        {
-            _closeShopButton.onClick.RemoveAllListeners();
-            _closeShopButton.onClick.AddListener(() =>
-            {
-                // SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio); TODO audio
-                // GameManager.instance.ReplayGame();
-                // this.PostEvent(EventID.IsPlayGame, true);
-                // this.PostEvent(EventID.Home);
-                CloseShop();
-            });
-
-            _rewardAdsButton.onClick.RemoveAllListeners();
-            _rewardAdsButton.onClick.AddListener(() =>
-            {
-                // SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio); TODO audio
-                YandexGame.RewVideoShow((int) VideoAdsId.Reward2);
-            });
-        }
-
-        private void OnCompleteAds(int id)
-        {
-            if(id != (int) VideoAdsId.Reward2) return;
-            StartCoroutine(DelayCompleteAds(5));
-        }
-        private IEnumerator DelayCompleteAds(float time)
-        {
-            var t = time;
-            while (t > 0)
-            {
-                yield return new WaitForEndOfFrame();
-                t--;
-                if (t == 0)
-                    GameDataManager.AddCoin(150);
-            }
-            GameSharedUI.instance.UpdateCoinsTextUI();
         }
 
         private void CloseShop() 

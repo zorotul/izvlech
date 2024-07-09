@@ -1,21 +1,19 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
+﻿using blocks;
 using System;
 using System.Linq;
-using blocks;
+using UnityEngine;
 using UnityEngine.Events;
-using Flatformer.GameData;
+using UnityEngine.UI;
 using YG;
 
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
 
 public class FortuneWheelManager : MonoBehaviour
 {
     [Header("Game Objects for some elements")]
     public Button PaidTurnButton;               // This button is showed when you can turn the wheel for coins
+
     public Button FreeTurnButton;               // This button is showed when you can turn the wheel for free
     public Button btnClose;
     public GameObject Circle;                   // Rotatable GameObject on scene with reward objects
@@ -27,12 +25,16 @@ public class FortuneWheelManager : MonoBehaviour
     private float _finalAngle;                  // The final angle is needed to calculate the reward
     private float _startAngle;                  // The first time start angle equals 0 but the next time it equals the last final angle
     private float _currentLerpRotationTime;     // Needed for spinning animation
-    
+
     private bool _isFreeTurnAvailable;
     private FortuneWheelSector _finalSector;
-    
+    private int _freeSpinCount;
+
+    public static FortuneWheelManager Instance { get; private set; }
+
     private void Awake()
     {
+        Instance = this;
         foreach (var sector in Sectors)
         {
             if (sector.ValueTextObject != null)
@@ -40,35 +42,45 @@ public class FortuneWheelManager : MonoBehaviour
                 sector.ValueTextObject.GetComponent<Text>().text = sector.RewardValue.ToString();
             }
         }
-        
+
         _isFreeTurnAvailable = CheckFreeTurn();
     }
-    
+
+    public void AddFreeSpin(int count)
+    {
+        _freeSpinCount += count;
+    }
+
     public void ClosePopup()
     {
         gameObject.SetActive(false);
     }
-   
+
     private void TurnWheelForFree()
     {
         TurnWheel(true);
     }
-    
+
     private void TurnWheelForAds(int id)
     {
-        if(id != (int) VideoAdsId.TurnWheel) return;
+        if (id != (int)VideoAdsId.TurnWheel) return;
         TurnWheel(false);
     }
-    
+
     private bool CheckFreeTurn()
     {
+        if (_freeSpinCount > 0)
+        {
+            _freeSpinCount--;
+            return true;
+        }
         if (YandexGame.savesData.freeSpin != 0)
         {
             return YandexGame.savesData.freeSpin != DateTime.Now.DayOfYear;
         }
         return true;
     }
-    
+
     private void TurnWheel(bool isFree)
     {
         _currentLerpRotationTime = 0f;
@@ -119,20 +131,21 @@ public class FortuneWheelManager : MonoBehaviour
         // Decrease money for the turn if it is not free turn
         if (!isFree)
         {
-
             //done spin paid
         }
         else
         {
-
             // Restart timer to next free turn
             SetNextFreeTime();
         }
     }
-    
+
     // Подписываемся на событие открытия рекламы в OnEnable
-    private void OnEnable() => YandexGame.RewardVideoEvent += TurnWheelForAds;
-    
+    private void OnEnable() {
+        ShowTurnButtons();
+        YandexGame.RewardVideoEvent += TurnWheelForAds; 
+    }
+
     private void OnDisable() => YandexGame.RewardVideoEvent -= TurnWheelForAds;
 
     public void TurnWheelButtonClick()
@@ -143,7 +156,7 @@ public class FortuneWheelManager : MonoBehaviour
         }
         else
         {
-            YandexGame.RewVideoShow((int) VideoAdsId.TurnWheel);
+            YandexGame.RewVideoShow((int)VideoAdsId.TurnWheel);
         }
     }
 
@@ -151,7 +164,8 @@ public class FortuneWheelManager : MonoBehaviour
     {
         YandexGame.savesData.freeSpin = DateTime.Now.DayOfYear;
         YandexGame.SaveProgress();
-        _isFreeTurnAvailable = false;
+        _isFreeTurnAvailable = CheckFreeTurn();
+        ShowTurnButtons();
     }
 
     private void ShowTurnButtons()
@@ -164,14 +178,10 @@ public class FortuneWheelManager : MonoBehaviour
         {
             ShowPaidTurnButton();
         }
-       
     }
 
     private void Update()
     {
-        // We need to show TURN FOR FREE button or TURN FOR COINS button
-        ShowTurnButtons();
-
         if (!_isStarted)
             return;
 
@@ -214,28 +224,32 @@ public class FortuneWheelManager : MonoBehaviour
     /// <param name="awardCoins">Coins for user</param>
     public void RewardCoins(float awardCoins)
     {
-        
         GameDataManager.AddCoin((int)awardCoins);
-        // GameSharedUI.instance.UpdateCoinsTextUI(); TODO game shared ui and init in yandex control
+        CoinManager.Instance.UpdateTexts();
     }
 
     private void EnableButton(Button button)
     {
         button.interactable = true;
-        //button.GetComponent<Image>().color = new Color(255, 255, 255, 1f);
     }
 
     private void DisableButton(Button button)
     {
         button.interactable = false;
-        //button.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
     }
 
     // Function for more readable calls
-    private void EnableFreeTurnButton() { EnableButton(FreeTurnButton); }
-    private void DisableFreeTurnButton() { DisableButton(FreeTurnButton); }
-    private void EnablePaidTurnButton() { EnableButton(PaidTurnButton); }
-    private void DisablePaidTurnButton() { DisableButton(PaidTurnButton); }
+    private void EnableFreeTurnButton()
+    { EnableButton(FreeTurnButton); }
+
+    private void DisableFreeTurnButton()
+    { DisableButton(FreeTurnButton); }
+
+    private void EnablePaidTurnButton()
+    { EnableButton(PaidTurnButton); }
+
+    private void DisablePaidTurnButton()
+    { DisableButton(PaidTurnButton); }
 
     private void ShowFreeTurnButton()
     {
@@ -253,7 +267,6 @@ public class FortuneWheelManager : MonoBehaviour
 public enum VideoAdsId
 {
     TurnWheel,
-    Reward2,
     ShopReward,
     RewardForAds
 }
@@ -261,6 +274,7 @@ public enum VideoAdsId
 /**
  * One sector on the wheel
  */
+
 [Serializable]
 public class FortuneWheelSector : System.Object
 {

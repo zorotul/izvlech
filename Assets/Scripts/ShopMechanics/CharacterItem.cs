@@ -28,7 +28,6 @@ namespace ShopMechanics
         public static readonly UnityEvent<int> SelectSkinEvent = new UnityEvent<int>();
         
         [Header("Information Character Item")]
-        [SerializeField] private int _index;
         [SerializeField] private Image _characterStateBG;
         [SerializeField] private Image _characterImage;
         [SerializeField] private GameObject _characterSelect;
@@ -40,16 +39,15 @@ namespace ShopMechanics
         [SerializeField] private Button _characterPurchaseButton;
         [SerializeField] private Button _selectItemButton;
 
-
         [Header("State Character Image")]
         [SerializeField] private Sprite _backGroundLock;
         [SerializeField] private Sprite _backGroundUnlock;
         [SerializeField] private Sprite _backGroundAlphaLock;
 
-        private CharacterSkinType _characterSkinType;
-		private int _unlockLevelRequired;
+        private int _unlockLevelRequired;
+        private int _index = -1;
 
-        public void SetChatacterIndex(int index) => this._index = index;
+        public void SetCharacterIndex(int index) => this._index = index;
 
         public void SetCharacterImage(Sprite sprite) => _characterImage.sprite = sprite;
 
@@ -60,6 +58,13 @@ namespace ShopMechanics
         }
 
         public void SetPurchaseEqualActiveLevel(string header)
+        {
+            _characterPurchaseButton.gameObject.SetActive(false);
+            _headerText.gameObject.SetActive(true);
+            _headerText.text = header;
+        }
+
+        public void SetPurchaseEqualActiveDays(string header)
         {
             _characterPurchaseButton.gameObject.SetActive(false);
             _headerText.gameObject.SetActive(true);
@@ -94,13 +99,22 @@ namespace ShopMechanics
 		
 		private void OnEnable()
 		{
+            if(_index == -1) return;
 			if (_unlockLevelRequired != 0 && GameDataManager.GetLevel() > _unlockLevelRequired) 
 			{
 				SetPurchaseAsCharacter();
 				_headerText.gameObject.SetActive(false);
 				_selectItemButton.interactable = true;
 				OnSelectItem();
-			}
+			} 
+            else if (GameDataManager.GetPurchaseAsCharacter(_index))
+            {
+                Debug.Log("unlock charaster: " + _index);
+                SetPurchaseAsCharacter();
+                _headerText.gameObject.SetActive(false);
+                _selectItemButton.interactable = true;
+                OnSelectItem();
+            }
 		}
 		
         public void OnPurchaseItem()
@@ -108,7 +122,7 @@ namespace ShopMechanics
             _characterPurchaseButton.onClick.RemoveAllListeners();
             _characterPurchaseButton.onClick.AddListener(() =>
             {
-                // SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio); TODO Audio
+                SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio); 
                 BuySkinEvent.Invoke(_index);
             });
         }
@@ -125,7 +139,7 @@ namespace ShopMechanics
             _selectItemButton.onClick.RemoveAllListeners();
             _selectItemButton.onClick.AddListener(() =>
             {
-                // SoundManager.instance.PlayAudioSound(SoundManager.instance.buttonAudio); TODO audio
+                SoundManager.Instance.PlayAudioSound(SoundManager.Instance.buttonAudio);
                 SelectSkinEvent.Invoke(_index);
             });
         }
@@ -142,11 +156,11 @@ namespace ShopMechanics
             _selectItemButton.interactable = true;
         }
 
-        
         public void OnCompleteAds()
         {
             StartCoroutine(DelayCompleteAds(5));
         }
+        
         private IEnumerator DelayCompleteAds(float delay)
         {
             var t = delay;
@@ -163,7 +177,7 @@ namespace ShopMechanics
 
         public void SetCharacter(Character character, int index)
         {
-            SetChatacterIndex(index);
+            SetCharacterIndex(index);
             SetCharacterImage(character.image);
             if (GameDataManager.GetPurchaseAsCharacter(index))
             {
@@ -173,20 +187,26 @@ namespace ShopMechanics
             else
             {
                 SetCharacterStateBG(StateCharacterItem.Lock);
-                OnPurchaseItem();
                 if (character.isNeedAds)
                 {
+                    OnPurchaseItem();
                     SetPurchaseEqualAds();
                 }
-				else if(character.levelRequired != 0 && GameDataManager.GetLevel() < character.levelRequired)
+                else if (character.levelRequired != 0 && GameDataManager.GetLevel() < character.levelRequired)
                 {
-					_unlockLevelRequired = character.levelRequired;
+                    _unlockLevelRequired = character.levelRequired;
                     SetCharacterStateBG(StateCharacterItem.AlphaLock);
-                    SetPurchaseEqualActiveLevel(ShopManager.UnlockLevelText.GetText() + "10");
+                    SetPurchaseEqualActiveLevel(ShopManager.UnlockLevelText.GetText() + character.levelRequired);
                 }
-				else if(character.price != 0)
+                else if (character.price != 0)
                 {
+                    OnPurchaseItem();
                     SetPurchaseEqualCoin(character.price);
+                }
+                else if (character.entryDaysRequired != 0) 
+                {
+                    SetCharacterStateBG(StateCharacterItem.AlphaLock);
+                    SetPurchaseEqualActiveDays(ShopManager.OpenOnText.GetText() + character.entryDaysRequired);
                 }
             }
         }

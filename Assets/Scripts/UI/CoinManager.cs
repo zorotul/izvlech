@@ -32,7 +32,7 @@ public class CoinManager : MonoBehaviour
         UpdateTexts();
     }
 
-    private void UpdateTexts()
+    public void UpdateTexts()
     {
         foreach (var text in _texts) 
         {

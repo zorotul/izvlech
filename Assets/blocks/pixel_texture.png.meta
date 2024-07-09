@@ -606,7 +606,7 @@ TextureImporter:
         width: 4
         height: 4
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 1, y: 1, z: 1, w: 1}
       outline: []
       physicsShape: []
@@ -614,6 +614,27 @@ TextureImporter:
       bones: []
       spriteID: 293e01e90613f42429a62de74e5204b2
       internalID: -1363606476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpenEveryDayRewardButton
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 998
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fc3cd53c4fed5a44b3ef8f913f177fd
+      internalID: -765424292
       vertices: []
       indices: 
       edges: []
@@ -631,6 +652,7 @@ TextureImporter:
     nameFileIdTable:
       AudioMusic: -1622482717
       BackgroundLock: -1363606476
+      OpenEveryDayRewardButton: -765424292
       OpenShopButton: -1974089007
       UIBackground: -253489437
       UIBackground1: -826187669

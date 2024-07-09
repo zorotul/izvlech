@@ -6,6 +6,13 @@ using YG;
 
 namespace blocks
 {
+    public enum EveryDayRewardState
+    {
+        Blocked,
+        CanGet,
+        WasGotten
+    }
+    
     #region Class: ShopData
     [System.Serializable]
     public class ShopData
@@ -29,7 +36,7 @@ namespace blocks
         public int widthPrice;
         public int activeWidth;
         public int activeHeight;
-        public bool[] everyDayRewardsInfo;
+        public EveryDayRewardState[] everyDayRewardsInfo;
         public int lastCallDate;
 
         public int selectCharacterIndex;
@@ -76,7 +83,7 @@ namespace blocks
             _shopData = JsonUtility.FromJson<ShopData>(YandexGame.savesData.shopData);
             if (_playerData == null)
             {
-                int currentCoin = 50;
+                int currentCoin = 0;
                 int currentLevel = 0;
                 int currentSkin = 0;
                 _playerData = new PlayerData
@@ -98,7 +105,6 @@ namespace blocks
                 };
                 SaveShopData();
             }
-            // MusicManager.instance.InitData(); TODO music manager
         }
 
         public static void SavePlayerData()

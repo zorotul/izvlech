@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class TNT : MonoBehaviour
 {
-    [SerializeField] PlayerDeformation _playerDeformation;
-
     private void OnTriggerEnter(Collider other)
     {
-        _playerDeformation.AddWidth(-30, true);
-        _playerDeformation.AddHeigth(-30, true);
+        PlayerDeformation.Instance.AddWidth(-30, true);
+        PlayerDeformation.Instance.AddHeigth(-30, true);
         Destroy(gameObject);
     }
 }
