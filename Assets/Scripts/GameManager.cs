@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     {
         _finishWindowDefeat.SetActive(false);
         _finishWindowWin.SetActive(false);
+        _startMenu.SetActive(true);
         if (_activeFinishObject != null) Destroy(_activeFinishObject);
         _activeFinishObject = Instantiate(_finishPrefab, _finishPosition.position, Quaternion.identity);
         PlayerBehaviour.Instance.transform.position = _startPlayerPosition.position;

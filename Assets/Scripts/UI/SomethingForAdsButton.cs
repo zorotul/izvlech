@@ -17,7 +17,7 @@ public class SomethingForAdsButton : MonoBehaviour
 
     private void SomethingForAds(int value)
     { 
-        if (value != (int)VideoAdsId.RewardForAds)
+        if (value == (int)VideoAdsId.RewardForAds)
         {
             _afterAds.Invoke();
         }
