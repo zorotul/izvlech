@@ -1,3 +1,5 @@
+using blocks;
+using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using YG;
@@ -25,9 +27,9 @@ public class SomethingForAdsButton : MonoBehaviour
 
     public void ThreeXLevelIncomeReward()
     {
-        var reward = CoinManager.Instance.levelsIncome * 2 / 3;
+        var reward = CoinManager.Instance.LevelsIncome * 2;
         CoinManager.Instance.AddCoins(reward);
-        CoinManager.Instance.levelsIncome += reward;
+        CoinManager.Instance.LevelsIncome += reward;
         GameEvents.UpdateMoneyCount.Invoke();
     }
 
@@ -39,6 +41,7 @@ public class SomethingForAdsButton : MonoBehaviour
 
     public void SkipLevel()
     {
+        GameDataManager.AddLevel(1);
         GameEvents.ResetLevelEvent.Invoke();
     }
 }

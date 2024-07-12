@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5378367694256308363}
-  - component: {fileID: 7210350046161638353}
   m_Layer: 0
-  m_Name: SpavnPoint
+  m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,18 +31,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4639050839871655573}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7210350046161638353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2497590086884525269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 004d2c2fd3f86f84eab0d2ce10a259ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7187742137328183360
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0e3ff137e3464d458156fc69873b112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spavnPoint: {fileID: 7210350046161638353}
+  _spawnPointTransform: {fileID: 5378367694256308363}
   lvlZones:
   - {fileID: 9102725723832451658, guid: e97b9ade8e2f2604aba8cacae2b1b5f4, type: 3}
   - {fileID: -8372166228139449014, guid: bddddc45a9d98fb4388b078899a9efc9, type: 3}
@@ -118,6 +105,9 @@ MonoBehaviour:
   - {fileID: 7999153097690070620, guid: 72e046c218878eb42a883079134f3d80, type: 3}
   - {fileID: 7436764520815612525, guid: 2cf4e9ff62d7c86418c52d1ffd9437d7, type: 3}
   - {fileID: 8863621107577124622, guid: 30f0038367e52ec4d83e6d1f4e66564b, type: 3}
+  - {fileID: 8863621107577124622, guid: a682875dffca2834f8c578627e3b8436, type: 3}
+  - {fileID: 8033021879583700285, guid: 9c2e25b5a53ff974e8d7e5a0b25f418e, type: 3}
+  _levelTransform: {fileID: 0}
 --- !u!1 &8517758863021580953
 GameObject:
   m_ObjectHideFlags: 0

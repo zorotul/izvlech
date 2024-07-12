@@ -1,6 +1,6 @@
 using blocks;
-using DefaultNamespace;
 using TMPro;
+using UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 30;
+        QualitySettings.vSyncCount = 2;
         Instance = this;
         GameEvents.ResetLevelEvent.AddListener(Init);
     }
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour
         _activeFinishObject = Instantiate(_finishPrefab, _finishPosition.position, Quaternion.identity);
         PlayerBehaviour.Instance.transform.position = _startPlayerPosition.position;
         _levelText.text = (GameDataManager.GetLevel() + 1).ToString();
+        LevelsControl.Instance.RestartLevel();
     }
 
     public void Play()

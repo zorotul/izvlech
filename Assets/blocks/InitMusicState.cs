@@ -23,7 +23,7 @@ namespace blocks
             {
                 _audioMixer.SetFloat("MusicVolume", 0);
             }
-            if (YandexGame.savesData.mutedUIMusic == 1)
+            if (YandexGame.savesData.mutedEffects == 1)
             {
                 _audioMixer.SetFloat("UIMusicVolume", 0);
             }

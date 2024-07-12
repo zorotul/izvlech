@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LvlZone : MonoBehaviour
 {
-    [SerializeField] public float maxHeightCoin;
-    [SerializeField] public float appOfMan;
+    public float maxHeightCoin;
+    public float appOfMan;
+    public int addWidth;
 }

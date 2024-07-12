@@ -10,4 +10,4 @@ public class TNT : MonoBehaviour
         PlayerDeformation.Instance.AddHeigth(-30, true);
         Destroy(gameObject);
     }
-}
+} 

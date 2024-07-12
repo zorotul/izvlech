@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine.Serialization;
+
 namespace YG
 {
     [System.Serializable]
@@ -12,7 +14,7 @@ namespace YG
 
         public int allMoney;
         public int mutedMusic;
-        public int mutedUIMusic;
+        public int mutedEffects;
         public int freeSpin;
         public string playerData;
         public string shopData;

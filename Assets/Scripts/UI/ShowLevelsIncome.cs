@@ -1,4 +1,5 @@
 using TMPro;
+using UI;
 using UnityEngine;
 
 public class ShowLevelsIncome : MonoBehaviour
@@ -16,7 +17,7 @@ public class ShowLevelsIncome : MonoBehaviour
     {
         foreach (var text in _texts)
         {
-            text.text = CoinManager.Instance.levelsIncome.ToString();
+            text.text = CoinManager.Instance.LevelsIncome.ToString();
         }
     }
 }

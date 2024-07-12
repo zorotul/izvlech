@@ -1,10 +1,9 @@
 using blocks;
 using System;
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.Events;
-
-
 
 public class EveryDayRewardUI : MonoBehaviour
 {

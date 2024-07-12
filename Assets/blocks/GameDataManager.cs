@@ -32,15 +32,14 @@ namespace blocks
     {
         public int coins;
         public int level;
-        public int heightPrice;
-        public int widthPrice;
+        public int heightPrice = 20;
+        public int widthPrice = 10;
         public int activeWidth;
         public int activeHeight;
         public EveryDayRewardState[] everyDayRewardsInfo;
         public int lastCallDate;
 
         public int selectCharacterIndex;
-        public int secondSelectCharacterIndex;
 
         public int GetCoin
         {

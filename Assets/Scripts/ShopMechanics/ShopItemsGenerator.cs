@@ -37,5 +37,10 @@ namespace ShopMechanics
 
             _simpleScrollSnap.Setup();
         }
+
+        private void OnEnable()
+        {
+            _simpleScrollSnap.Setup();
+        }
     }
 }

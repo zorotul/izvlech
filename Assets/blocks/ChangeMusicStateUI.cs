@@ -3,11 +3,18 @@ using UnityEngine.Audio;
 
 namespace blocks
 {
+    public enum MusicState
+    {
+        Effect,
+        Music
+    }
+    
     public class ChangeMusicStateUI : MonoBehaviour
     {
         [SerializeField] private string audioMixerParameter;
         [SerializeField] private AudioMixerGroup _mixerGroup;
         [SerializeField] private GameObject _volumeBlockImage;
+        [SerializeField] private MusicState _musicState;
 
         public void Init()
         {
@@ -23,12 +30,12 @@ namespace blocks
             if (_volumeBlockImage.activeSelf)
             {
                 _volumeBlockImage.SetActive(false);
-                _mixerGroup.audioMixer.SetFloat(audioMixerParameter, -80);
+                _mixerGroup.audioMixer.SetFloat(audioMixerParameter, 0);
             }
             else
             {
                 _volumeBlockImage.SetActive(true);
-                _mixerGroup.audioMixer.SetFloat(audioMixerParameter, 0);
+                _mixerGroup.audioMixer.SetFloat(audioMixerParameter, -80);
             }
         }
     }
