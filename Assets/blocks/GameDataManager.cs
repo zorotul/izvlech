@@ -128,9 +128,6 @@ namespace blocks
         public static void AddCoin(int coin)
         {
             YandexGame.savesData.allMoney += coin;
-            YandexGame.NewLeaderboardScores("Score", YandexGame.savesData.allMoney);
-            YandexGame.GetLeaderboard("Score",
-                Int32.MaxValue, Int32.MaxValue, Int32.MaxValue, "nonePhoto");
             _playerData.AddCoins(coin);
             SavePlayerData();
         }

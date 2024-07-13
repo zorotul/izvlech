@@ -1,7 +1,9 @@
+using System;
 using blocks;
 using TMPro;
 using UI;
 using UnityEngine;
+using YG;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,8 +23,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 30;
-        QualitySettings.vSyncCount = 2;
         Instance = this;
         GameEvents.ResetLevelEvent.AddListener(Init);
     }
@@ -39,6 +41,9 @@ public class GameManager : MonoBehaviour
         _finishWindowWin.SetActive(false);
         _startMenu.SetActive(true);
         if (_activeFinishObject != null) Destroy(_activeFinishObject);
+        YandexGame.NewLeaderboardScores("Score", YandexGame.savesData.allMoney);
+        YandexGame.GetLeaderboard("Score",
+            Int32.MaxValue, Int32.MaxValue, Int32.MaxValue, "nonePhoto");
         _activeFinishObject = Instantiate(_finishPrefab, _finishPosition.position, Quaternion.identity);
         PlayerBehaviour.Instance.transform.position = _startPlayerPosition.position;
         _levelText.text = (GameDataManager.GetLevel() + 1).ToString();

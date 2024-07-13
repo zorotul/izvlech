@@ -9,7 +9,7 @@ public class CameraMove : MonoBehaviour
         transform.parent = null;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (_target)
         {

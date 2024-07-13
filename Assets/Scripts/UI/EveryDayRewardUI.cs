@@ -1,5 +1,6 @@
 using blocks;
 using System;
+using ShopMechanics;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -7,7 +8,9 @@ using UnityEngine.Events;
 
 public class EveryDayRewardUI : MonoBehaviour
 {
+    [SerializeField] private int _freeSkinIndex;
     [SerializeField] private GameObject _freeSkinRewardWindow;
+    [SerializeField] private GameObject _freeSkinRewardItem;
     
     [SerializeField] private TMP_Text _freeMoneyWindowText;
     [SerializeField] private GameObject _freeMoneyWindow;
@@ -27,10 +30,29 @@ public class EveryDayRewardUI : MonoBehaviour
         Instance = this;
     }
 
+    [ContextMenu("Test")]
+    public void Test()
+    {
+        _playerData.lastCallDate = DateTime.Now.DayOfYear-1;
+        Init();
+    }
+
     public void Init()
     {
         _playerData = GameDataManager.GetPlayerData();
-        if(DateTime.Now.DayOfYear-_playerData.lastCallDate > 1)
+        if (_playerData.everyDayRewardsInfo != null && _playerData.everyDayRewardsInfo[^1] ==
+            EveryDayRewardState.WasGotten && _playerData.everyDayRewardsInfo[0] ==
+            EveryDayRewardState.WasGotten)
+        {
+            _freeSkinRewardItem.SetActive(false);
+            _playerData.everyDayRewardsInfo = new EveryDayRewardState[_items.Length];
+            _playerData.everyDayRewardsInfo[0] = EveryDayRewardState.CanGet;
+            for (var i = 1; i < _items.Length; i++) 
+            {
+                _playerData.everyDayRewardsInfo[i] = EveryDayRewardState.Blocked;
+            }
+        }
+        else if(DateTime.Now.DayOfYear-_playerData.lastCallDate > 1)
         {
             _playerData.everyDayRewardsInfo = new EveryDayRewardState[_items.Length];
             _playerData.everyDayRewardsInfo[0] = EveryDayRewardState.CanGet;
@@ -49,6 +71,7 @@ public class EveryDayRewardUI : MonoBehaviour
                 break;
             }
         }
+        
         
         for (int i = 0; i < _items.Length; i++)
         {
@@ -81,6 +104,7 @@ public class EveryDayRewardUI : MonoBehaviour
 
     public void AddSkinReward()
     {
+        GameDataManager.AddPurchaseCharacter(_freeSkinIndex);
         _freeSkinRewardWindow.SetActive(true);
     }
 }

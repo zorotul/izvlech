@@ -1,12 +1,12 @@
 {
-    "idSave": 938,
+    "idSave": 1402,
     "isFirstSession": false,
-    "language": "en",
+    "language": "ru",
     "promptDone": false,
-    "allMoney": 136,
+    "allMoney": 9,
     "mutedMusic": 0,
     "mutedEffects": 0,
     "freeSpin": 0,
-    "playerData": "{\"coins\":136,\"level\":15,\"heightPrice\":20,\"widthPrice\":10,\"activeWidth\":0,\"activeHeight\":0,\"everyDayRewardsInfo\":[2,1,1,0,0,0],\"lastCallDate\":193,\"selectCharacterIndex\":0}",
+    "playerData": "{\"coins\":9,\"level\":0,\"heightPrice\":20,\"widthPrice\":10,\"activeWidth\":0,\"activeHeight\":0,\"everyDayRewardsInfo\":[1,0,0,0,0,0],\"lastCallDate\":195,\"selectCharacterIndex\":0}",
     "shopData": "{\"purchaseAsCharacters\":[0]}"
 }

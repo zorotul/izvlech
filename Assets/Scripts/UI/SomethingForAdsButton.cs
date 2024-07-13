@@ -8,18 +8,23 @@ public class SomethingForAdsButton : MonoBehaviour
 {
     [SerializeField] private UnityEvent _afterAds;
 
+    private static string _rewardedName;
+
     private void OnEnable() => YandexGame.RewardVideoEvent += SomethingForAds;
 
     private void OnDisable() => YandexGame.RewardVideoEvent -= SomethingForAds;
 
     public void StartRewardedVideo()
     {
+        Debug.Log("Start");
+        _rewardedName = gameObject.name;
         YandexGame.RewVideoShow((int)VideoAdsId.RewardForAds);
     }
 
     private void SomethingForAds(int value)
-    { 
-        if (value == (int)VideoAdsId.RewardForAds)
+    {
+        Debug.Log("Reward");
+        if (value == (int)VideoAdsId.RewardForAds && _rewardedName == gameObject.name)
         {
             _afterAds.Invoke();
         }
@@ -27,6 +32,7 @@ public class SomethingForAdsButton : MonoBehaviour
 
     public void ThreeXLevelIncomeReward()
     {
+        Debug.Log("Income");
         var reward = CoinManager.Instance.LevelsIncome * 2;
         CoinManager.Instance.AddCoins(reward);
         CoinManager.Instance.LevelsIncome += reward;

@@ -27,10 +27,6 @@ namespace Flatformer.GameData
             MultiTextUI.lang = YandexGame.lang;
             YandexGame.InitEnvirData();
             GameDataManager.InitData();
-            YandexGame.NewLeaderboardScores("Score", YandexGame.savesData.allMoney);
-            YandexGame.GetLeaderboard("Score",
-                Int32.MaxValue, Int32.MaxValue,
-                Int32.MaxValue, "nonePhoto");
             ShopManager.Instance.Init();
             InitMusicState.Instance.Init();
             GameManager.Instance.StartGame();

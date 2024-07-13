@@ -45,6 +45,7 @@ public class FortuneWheelManager : MonoBehaviour
         }
 
         _isFreeTurnAvailable = CheckFreeTurn();
+        gameObject.SetActive(false);
     }
 
     public void AddFreeSpin(int count)
