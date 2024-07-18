@@ -2,6 +2,7 @@ using blocks;
 using TMPro;
 using UI;
 using UnityEngine;
+using YG;
 
 public class GameplayShop : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class GameplayShop : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        GameEvents.DefeatEvent.AddListener(ResetActiveHeightAndWidth);
+        GameEvents.WinEvent.AddListener(ResetActiveHeightAndWidth);
     }
 
     private void Start()
@@ -31,6 +34,9 @@ public class GameplayShop : MonoBehaviour
         _playerData = GameDataManager.GetPlayerData();
         _textHeigth.text = _playerData.heightPrice.ToString();
         _textWidth.text = _playerData.widthPrice.ToString();
+        Debug.Log("_playerData.activeWidth: " + _playerData.activeWidth);
+        _playerDeformation.SetWidth(_playerData.activeWidth);
+        _playerDeformation.SetHeigth(_playerData.activeHeight);
     }
 
     public void BuyWidth()
@@ -39,6 +45,7 @@ public class GameplayShop : MonoBehaviour
         {
             _coinManager.SpendMoney(_playerData.widthPrice);
             _playerData.activeWidth += 25;
+            Debug.Log("_playerData.activeWidth: " + _playerData.activeWidth);
             _playerDeformation.SetWidth(_playerData.activeWidth);
             UpToPriceWidth();
         }
@@ -50,7 +57,6 @@ public class GameplayShop : MonoBehaviour
         {
             _coinManager.SpendMoney(_playerData.heightPrice);
             _playerData.activeHeight += 25;
-            GameDataManager.SavePlayerData();
             _playerDeformation.SetHeigth(_playerData.activeHeight);
             UpToPriceHeigth();
         }
@@ -67,6 +73,14 @@ public class GameplayShop : MonoBehaviour
     {
         _playerData.heightPrice += 2;
         _textHeigth.text = _playerData.heightPrice.ToString();
+        GameDataManager.SavePlayerData();
+    }
+
+    private void ResetActiveHeightAndWidth()
+    {
+        var playerData = GameDataManager.GetPlayerData();
+        playerData.activeWidth = 0;
+        playerData.activeHeight = 0;
         GameDataManager.SavePlayerData();
     }
 }

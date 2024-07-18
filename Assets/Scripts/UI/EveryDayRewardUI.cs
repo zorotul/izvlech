@@ -90,9 +90,17 @@ public class EveryDayRewardUI : MonoBehaviour
 
     public void AddTurnWheelSpinsReward(int count)
     {
+#if UNITY_EDITOR
+        var playerData = GameDataManager.GetPlayerData();
+        Debug.Log("playerData.freeSpinsCount: " + playerData.freeSpinsCount);
+#endif
         _freeSpinsRewardWindow.SetActive(true);
         _freeSpinsRewardWindowText.text = "+" + count;
-        FortuneWheelManager.Instance.AddFreeSpin(count);
+        GameDataManager.AddFreeSpin(count);
+#if UNITY_EDITOR
+        playerData = GameDataManager.GetPlayerData();
+        Debug.Log("playerData.freeSpinsCount: " + playerData.freeSpinsCount);
+#endif
     }
 
     public void AddMoneyReward(int count)

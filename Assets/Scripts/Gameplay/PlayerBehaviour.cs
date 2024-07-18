@@ -22,6 +22,8 @@ public class PlayerBehaviour : MonoBehaviour
         transform.rotation = Quaternion.identity;
         _animator.SetBool("Dance", false);
         _animator.Play("Idle");
+        _run.Stop();
+        _win.Stop();
         _playerMove.enabled = false;
         _preFinishBehaviour.enabled = false;
     }

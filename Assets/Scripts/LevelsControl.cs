@@ -22,7 +22,6 @@ public class LevelsControl : MonoBehaviour
 
     public void RestartLevel()
     {
-        YandexMetrica.Send("LevelFailed" + GameDataManager.GetLevel());
         Destroy(_activeLevel);
         LoadLevel(0);
     }

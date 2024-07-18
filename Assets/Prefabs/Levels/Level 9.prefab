@@ -1204,7 +1204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.10693307, b: 0.10693307, a: 1}
+  m_Color: {r: 0.19746357, g: 0.8666667, b: 0.12549019, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1973,7 +1973,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.10693307, b: 0.10693307, a: 0.5}
+  m_Color: {r: 0.19746357, g: 0.8666667, b: 0.12549019, a: 0.5}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7539,7 +7539,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8852426250651979151
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10320,7 +10320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5198152443164219075
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16022,7 +16022,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: -55
+  m_text: +55
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 839952fa5a84624428deb4a8034a0a00, type: 2}
   m_sharedMaterial: {fileID: -555414426252154274, guid: 839952fa5a84624428deb4a8034a0a00,
@@ -16235,7 +16235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5759285858498d34794b44ef1c21197b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: -55
+  _value: 55
   _deformationType: 0
   _gateApperaence: {fileID: 7233085375817854919}
 --- !u!65 &152965581109574385

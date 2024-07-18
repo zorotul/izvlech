@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
 
     public void ReLevel()
     {
+        CoinManager.Instance.AddCoins(-CoinManager.Instance.LevelsIncome);
         LevelsControl.Instance.RestartLevel();
         GameEvents.ResetLevelEvent.Invoke();
     }

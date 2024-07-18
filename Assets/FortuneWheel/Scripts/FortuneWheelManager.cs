@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using UI;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -29,7 +30,6 @@ public class FortuneWheelManager : MonoBehaviour
 
     private bool _isFreeTurnAvailable;
     private FortuneWheelSector _finalSector;
-    private int _freeSpinCount;
 
     public static FortuneWheelManager Instance { get; private set; }
 
@@ -43,14 +43,7 @@ public class FortuneWheelManager : MonoBehaviour
                 sector.ValueTextObject.GetComponent<Text>().text = sector.RewardValue.ToString();
             }
         }
-
-        _isFreeTurnAvailable = CheckFreeTurn();
         gameObject.SetActive(false);
-    }
-
-    public void AddFreeSpin(int count)
-    {
-        _freeSpinCount += count;
     }
 
     public void ClosePopup()
@@ -69,18 +62,31 @@ public class FortuneWheelManager : MonoBehaviour
         TurnWheel(false);
     }
 
-    private bool CheckFreeTurn()
+    private static bool CheckNextFreeTurn()
     {
-        if (_freeSpinCount > 0)
+        var playerData = GameDataManager.GetPlayerData();
+        if (playerData.freeSpinsCount > 0)
         {
-            _freeSpinCount--;
             return true;
         }
-        if (YandexGame.savesData.freeSpin != 0)
+        if (YandexGame.savesData.freeSpin != DateTime.Now.DayOfYear || YandexGame.savesData.freeSpin == 0)
         {
-            return YandexGame.savesData.freeSpin != DateTime.Now.DayOfYear;
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    private void ChangeFreeTurnsData()
+    {
+        var playerData = GameDataManager.GetPlayerData();
+        if (playerData.freeSpinsCount > 0)
+        {
+            GameDataManager.AddFreeSpin(-1);
+        }
+        else if (YandexGame.savesData.freeSpin != DateTime.Now.DayOfYear || YandexGame.savesData.freeSpin == 0)
+        {
+            YandexGame.savesData.freeSpin = DateTime.Now.DayOfYear;
+        }
     }
 
     private void TurnWheel(bool isFree)
@@ -141,11 +147,13 @@ public class FortuneWheelManager : MonoBehaviour
             SetNextFreeTime();
         }
     }
-
-    // Подписываемся на событие открытия рекламы в OnEnable
-    private void OnEnable() {
-        ShowTurnButtons();
+    
+    private void OnEnable()
+    {
         YandexGame.RewardVideoEvent += TurnWheelForAds; 
+        if(GameDataManager.GetPlayerData() == null) return;
+        _isFreeTurnAvailable = CheckNextFreeTurn();
+        ShowTurnButtons();
     }
 
     private void OnDisable() => YandexGame.RewardVideoEvent -= TurnWheelForAds;
@@ -164,9 +172,12 @@ public class FortuneWheelManager : MonoBehaviour
 
     public void SetNextFreeTime()
     {
-        YandexGame.savesData.freeSpin = DateTime.Now.DayOfYear;
-        YandexGame.SaveProgress();
-        _isFreeTurnAvailable = CheckFreeTurn();
+#if UNITY_EDITOR
+        var playerData = GameDataManager.GetPlayerData();
+        Debug.Log("playerData.freeSpinsCount: " + playerData.freeSpinsCount);
+#endif
+        ChangeFreeTurnsData();
+        _isFreeTurnAvailable = CheckNextFreeTurn();
         ShowTurnButtons();
     }
 

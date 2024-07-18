@@ -38,6 +38,7 @@ namespace blocks
         public int activeHeight;
         public EveryDayRewardState[] everyDayRewardsInfo;
         public int lastCallDate;
+        public int freeSpinsCount;
 
         public int selectCharacterIndex;
 
@@ -85,13 +86,17 @@ namespace blocks
                 int currentCoin = 0;
                 int currentLevel = 0;
                 int currentSkin = 0;
+                int heightPrice = 20;
+                int widthPrice = 10;
                 _playerData = new PlayerData
                 {
                     coins = currentCoin,
                     level = currentLevel,
                     selectCharacterIndex = currentSkin,
-                    heightPrice = 20,
-                    widthPrice = 10
+                    heightPrice = heightPrice,
+                    widthPrice = widthPrice,
+                    freeSpinsCount = 0
+                    
                 };
                 SavePlayerData();
             }
@@ -169,6 +174,12 @@ namespace blocks
         public static bool GetPurchaseAsCharacter(int index)
         {
             return _shopData.GetPurchaseAsCharacter(index);
+        }
+        
+        public static void AddFreeSpin(int count)
+        {
+            _playerData.freeSpinsCount += count;
+            SavePlayerData();
         }
 
         public static void AddPurchaseCharacter(int index)

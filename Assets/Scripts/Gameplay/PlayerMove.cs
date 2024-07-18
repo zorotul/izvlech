@@ -22,7 +22,7 @@ public class PlayerMove : MonoBehaviour
         else if (Input.GetMouseButton(0))
         {
             Vector3 newPosition = transform.position + transform.forward * Time.deltaTime * _speed;
-            newPosition.x = Mathf.Clamp(newPosition.x, -3.1f, 3.1f);
+            newPosition.x = Mathf.Clamp(newPosition.x, -2.9f, 2.9f);
             transform.position = newPosition;
             float deltaX = Input.mousePosition.x - _oldMousePositionX;
             _oldMousePositionX = Input.mousePosition.x;

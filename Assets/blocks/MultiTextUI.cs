@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class MultiText
@@ -29,7 +30,19 @@ public class MultiTextUI : MonoBehaviour
 
     public static string lang;
 
-    private void Start()
+    public static UnityEvent ChangeLanguageEvent = new UnityEvent();
+
+    private void Awake()
+    {
+        ChangeLanguageEvent.AddListener(SetText);
+    }
+
+    private void OnEnable()
+    {
+        SetText();
+    }
+
+    private void SetText()
     {
         if (TryGetComponent(out _text))
         {
